@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import '../css/Loginpage.css'
+import { loginaction } from '../../action/loginAction';
 
 const LoginPage = () => {
 
@@ -10,6 +12,9 @@ const LoginPage = () => {
  const [mobileNumber,setMobileNumber] = useState("");
  const [disableButton,setDisablebutton] = useState(true);
  const [credentials,setCredentials] = useState(null);
+
+ const dispatch = useDispatch();
+ const loginData = useSelector(state => state)
 
 
 
@@ -51,10 +56,13 @@ const LoginPage = () => {
     e.preventDefault();
     if(mobileNumber && password && username){
         setCredentials({userName:username,Password:password,mobilenumber:mobileNumber})
+        dispatch(loginaction(credentials))
     }else{
         console.log("something went wrong")
     }
  }
+
+ console.log(loginData)
 
 
   
